@@ -1,0 +1,9 @@
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\bin\Debug\Datos.dll
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\bin\Debug\Datos.pdb
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\obj\Debug\Datos.csproj.AssemblyReference.cache
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\obj\Debug\Datos.dll
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\obj\Debug\Datos.pdb
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\bin\Debug\Entidades.dll
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\bin\Debug\Entidades.pdb
+C:\Users\jota_\source\repos\TPFinalNivel2_Carles\Datos\obj\Debug\Datos.csproj.Up2Date
