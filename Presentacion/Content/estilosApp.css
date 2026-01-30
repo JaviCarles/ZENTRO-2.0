@@ -1,0 +1,12 @@
+﻿.degradeFondo {
+    background: linear-gradient( 135deg, #a8c0ff, /* azul pastel */
+    #c1f0f6, /* celeste suave */
+    #fbc2eb, /* rosa pastel */
+    #fefefe /* blanco */
+    );
+    height: 100vh; /* ocupa toda la pantalla */
+    background-attachment:fixed; /*para que el gradiente no se corte*/
+}
+.labelApp {
+    color: #6c6a7d;
+}

@@ -1,0 +1,26 @@
+﻿/* Establece una altura mínima para todas las tarjetas */
+.card{
+    min-height: 300px;
+}
+
+/* Normaliza las imágenes en la parte superior de cada tarjeta */
+.card-img-top {
+    height: auto; /* permite que la imagen se adapte a su contenido */
+    max-height: 150px; /* limita la altura sin forzar recorte */
+    object-fit: contain; /* ajusta la imagen sin recortarla */
+    width: 100%;
+}
+
+/* Estilo compacto para el título del producto */
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Estilo compacto para el precio del producto */
+.card-text {
+    font-size: 0.9rem;
+}
+
+
+
