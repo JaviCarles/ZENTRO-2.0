@@ -21,8 +21,7 @@ namespace Presentacion
             if (!IsPostBack)
             {
                 cargarListadoOrden();
-                orden = DropDownOrden.Text;
-
+                //orden = DropDownOrden.Text;
                 listarProductos();
             }
         }
@@ -34,9 +33,9 @@ namespace Presentacion
             try
             {
                 if(usuario != null)
-                    lista = ProductoNegocio.buscar(filtro, orden, usuario.Id);
-                else
-                    lista = ProductoNegocio.buscar(filtro, orden);
+                    lista = ProductoNegocio.buscar(filtro, orden,null , usuario.Id);
+                //else
+                //    lista = ProductoNegocio.buscar(filtro, orden);
                 rptProductos.DataSource = lista;
                 rptProductos.DataBind();
             }
@@ -48,8 +47,6 @@ namespace Presentacion
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            //orden = DropDownOrden.Text;
-            //filtro = txtBusqueda.Text;
             listarProductos();
         }
 
@@ -69,7 +66,7 @@ namespace Presentacion
 
         public void cargarListadoOrden()
         {
-            List<string> listaOrden = new List<string> { "NOMBRE", "CATEGORIA", "MARCA", "PRECIO" };
+            List<string> listaOrden = new List<string> { "Nombre", "Categoria", "Marca", "Precio" };
             DropDownOrden.DataSource = listaOrden;
             DropDownOrden.DataBind();
         }

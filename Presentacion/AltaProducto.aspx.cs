@@ -38,7 +38,7 @@ namespace Presentacion
             try
             {
                 List<Categoria> categorias = new List<Categoria>();
-                categorias = ProductoNegocio.listaCategorias();
+                categorias = CategoriaNegocio.listaCategorias();
                 if (categorias != null && categorias.Count > 0)
                 {
                     DropDownListCategoria.DataSource = categorias;

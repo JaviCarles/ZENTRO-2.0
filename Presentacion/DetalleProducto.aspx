@@ -16,7 +16,7 @@
             <!-- Detalles del producto -->
             <div class="col-md-6">
                 <h1 class="fw-bold mb-3"><%= producto.Nombre%></h1>
-                <h4 class="text-success mb-4">$ <%= producto.Precio %></h4>
+                <h4 class="text-success mb-4">$ <%= producto.Precio.ToString("N0") %></h4>
                 <p class="text-muted">
                     <%= producto.Descripcion %>
                 </p>
@@ -39,6 +39,7 @@
                     class="btn btn-success btn-lg">
                     <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
                 </a>
+                <h3 class="mt-4 mb-4"><%= producto.Marca.Descripcion %></h3>
             </div>
         </div>
     </div>

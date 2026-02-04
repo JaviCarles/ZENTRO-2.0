@@ -14,17 +14,18 @@ namespace Presentacion
         public Usuario usuario;
         public List<Producto> lista {  get; set; }
         string orden,filtro = "";
-
+        int idCategoria;
         protected void Page_Load(object sender, EventArgs e)
         {
+
             usuario = new Usuario();
             usuario = Session["usuario"] != null ? (Usuario)Session["usuario"] : null;
             if (!IsPostBack)
             {
                 cargarListadoOrden();
                 orden = DropDownOrden.Text;
-              
-                listarProductos();
+                cargarListadoCategoria();
+                buscar();
             }
             
         }
@@ -33,7 +34,10 @@ namespace Presentacion
         {
             try
             {
-                lista = ProductoNegocio.buscar(filtro, orden);
+                if (idCategoria != 0)
+                    lista = ProductoNegocio.buscar(filtro, orden, idCategoria);
+                else
+                    lista = ProductoNegocio.buscar(filtro, orden);
                 rptProductos.DataSource = lista;
                 rptProductos.DataBind();
             }
@@ -45,21 +49,43 @@ namespace Presentacion
 
         public void cargarListadoOrden()
         {
-            List<string> listaOrden = new List<string> { "NOMBRE", "CATEGORIA", "MARCA", "PRECIO" };
+            List<string> listaOrden = new List<string> { "Nombre", "Marca", "Precio" };
             DropDownOrden.DataSource = listaOrden;
             DropDownOrden.DataBind();
+        }
+
+        public void cargarListadoCategoria()
+        {
+            List<Categoria> listaCategoria = CategoriaNegocio.listaCategorias();
+            Categoria cat = new Categoria { Id = 0, Descripcion = "Todas" };
+            listaCategoria.Add(cat);
+            DropDownCategoria.DataSource = listaCategoria ;
+            DropDownCategoria.DataTextField = "Descripcion";
+            DropDownCategoria.DataValueField = "Id";
+            DropDownCategoria.SelectedValue= "0";
+            DropDownCategoria.DataBind();
         }
 
         protected void btnFavorito_Click(object sender, EventArgs e)
         {
             
-            
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {   orden = DropDownOrden.Text;
+        {
+            buscar();
+        }
+
+        public void buscar()
+        {
+            orden = DropDownOrden.Text;
             filtro = txtBusqueda.Text;
+            idCategoria = int.Parse(DropDownCategoria.SelectedValue);
             listarProductos();
+        }
+        protected void DropDownOrden_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buscar();
         }
 
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)

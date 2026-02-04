@@ -18,18 +18,25 @@
                 </asp:Panel>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-3">
             <div class="input-group mb-3">
                 <asp:Label ID="LabelOrden" class="form-label fw-bold mt-2 me-3 mb-3" runat="server" Text="Ordenar por"></asp:Label>
-                <asp:DropDownList ID="DropDownOrden" OnSelectedIndexChanged="btnBuscar_Click" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="DropDownOrden" OnSelectedIndexChanged="DropDownOrden_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
             </div>
         </div>
+        <div class="col-3">
+    <div class="input-group mb-3">
+        <asp:Label ID="LabelCategoria" class="form-label fw-bold mt-2 me-3 mb-3" runat="server" Text="Categoria"></asp:Label>
+        <asp:DropDownList ID="DropDownCategoria" OnSelectedIndexChanged="btnBuscar_Click" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+    </div>
+</div>
     </div>
     <div class="row row-cols-2 row-cols-lg-5 g-4">
     <asp:Repeater ID="rptProductos" runat="server" OnItemCommand="rptProductos_ItemCommand">
         <ItemTemplate>
             <div class="col">
                 <div class="card h-100 shadow-sm border-0">
+                    <h5 class="mt-1 mb-1"><%# Eval("Marca.Descripcion") %></h5>
                     <img src='<%# Eval("ImagenUrl") %>' 
                          class="card-img-top img-fluid" 
                          alt="Imagen no disponible"
