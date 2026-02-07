@@ -67,6 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminCategoria.aspx" />
+    <Content Include="AdminMarca.aspx" />
     <Content Include="AdminProducto.aspx" />
     <Content Include="AltaProducto.aspx" />
     <Content Include="AltaUsuario.aspx" />
@@ -81,6 +83,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminCategoria.aspx.cs">
+      <DependentUpon>AdminCategoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminCategoria.aspx.designer.cs">
+      <DependentUpon>AdminCategoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMarca.aspx.cs">
+      <DependentUpon>AdminMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMarca.aspx.designer.cs">
+      <DependentUpon>AdminMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminProducto.aspx.cs">
       <DependentUpon>AdminProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

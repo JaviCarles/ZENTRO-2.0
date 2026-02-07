@@ -64,7 +64,7 @@ namespace Presentacion
             try
             {
                 List<Marca> marcas = new List<Marca>();
-                marcas = ProductoNegocio.listaMarcas();
+                marcas = MarcaNegocio.listaMarcas();
                 if (marcas != null && marcas.Count > 0)
                 {
                     DropDownListMarca.DataSource = marcas;
@@ -83,6 +83,7 @@ namespace Presentacion
             }
         }
         #endregion CARGAR DESPLEGABLE MARCA
+
         protected void txtImagen_TextChanged(object sender, EventArgs e)
         {
             cargarImg();

@@ -76,10 +76,10 @@
                                 <a class="nav-link" href="AdminProducto.aspx">Admin Productos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="CategoriaFront.aspx">Categorias</a>
+                                <a class="nav-link" href="AdminCategoria.aspx">Categorias</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="MarcaFront.aspx">Marcas</a>
+                                <a class="nav-link" href="AdminMarca.aspx">Marcas</a>
                             </li>
                             <% }%>
                         </ul>
