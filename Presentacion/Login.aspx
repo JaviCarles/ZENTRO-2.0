@@ -3,11 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h3 class="text-center fw-bold mb-4 mt-4">INICIAR SESIÓN</h3>
+    
     <div class="row mt-3">
-        <div class="col-4">
-        </div>
-        <div class="col">
+        <div class="col-8 offset-2 col-md-4 offset-md-4">
+        <h3 class="ajusteTamañoDispositivo text-center  fw-bold mb-4 mt-4">INICIAR SESIÓN</h3>
             <div class="mb-3">
                  <asp:Label ID="lblValidacionUser" CssClass="form-label alert alert-danger fw-bold d-block" role="alert" runat="server" Text="Email o contraseña incorrectos."></asp:Label>
             </div>
@@ -28,8 +27,6 @@
                     <a href="AltaUsuario.aspx">Crear cuenta</a>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
         </div>
     </div>
 </asp:Content>

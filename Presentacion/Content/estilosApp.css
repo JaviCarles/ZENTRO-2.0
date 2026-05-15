@@ -10,3 +10,18 @@
 .labelApp {
     color: #6c6a7d;
 }
+/* Tablets y móviles */
+@media (max-width: 768px) {
+    .ajusteTamañoDispositivo {
+        font-size: 1.3rem; /* texto más grande */
+        padding: 0.75rem; /* más espacio interno */
+    }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+    .ajusteTamañoDispositivo {
+        font-size: 1.5rem; /* aún más grande */
+        padding: 1rem; /* espacio cómodo para el dedo */
+    }
+}

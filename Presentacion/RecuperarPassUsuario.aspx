@@ -10,8 +10,8 @@
             <div class="col-4">
             </div>
             <div class="col mb-3">
-                <p class="fw-bold">Ingresá tu correo y te enviaremos una nueva clave.</p>
-                <label for="txtEmail" class="form-label">Correo electrónico</label>
+                <p class="fw-bold">Ingresá tu correo y te enviaremos una nueva clave. La clave asociada a tu cuenta será modificada.</p>
+                
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
                 <%--<asp:RequiredFieldValidator ControlToValidate="txtEmail" ErrorMessage="Este campo es obligatorio" runat="server" CssClass="text-danger" />--%>
                 <asp:Button ID="btnEnviar" runat="server" Text="Enviar" CssClass="btn btn-primary w-100 mt-3" OnClick="btnEnviar_Click" />

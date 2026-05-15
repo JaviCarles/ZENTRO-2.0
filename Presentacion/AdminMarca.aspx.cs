@@ -11,7 +11,7 @@ namespace Presentacion
 {
     public partial class AdminMarca : System.Web.UI.Page
     {
-        public Usuario usuario;        
+        public Usuario usuario;
         int idMarca;
         public List<Marca> marcas = new List<Marca>();
         protected void Page_Load(object sender, EventArgs e)
@@ -41,86 +41,117 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
         #endregion CARGAR GRILLA
         protected void dgvMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            string[] args = e.CommandArgument.ToString().Split('|');
-            idMarca = Convert.ToInt32(args[0]);
-            string descripcion = args.Length > 1 ? args[1] : "";
-
-            if (e.CommandName == "Editar")
+            try
             {
-                ViewState["IdMarcaEditar"] = idMarca; // guardar en ViewState
-                txtModificarMarca.Text = descripcion;
-                btnModificarMarca.Visible = true;
-                btnCerrar.Visible = true;
-                txtModificarMarca.Visible = true;
-            }
-            else if (e.CommandName == "Eliminar")
-            {
-               eliminarMarca(idMarca);
-            }
+                string[] args = e.CommandArgument.ToString().Split('|');
+                idMarca = Convert.ToInt32(args[0]);
+                string descripcion = args.Length > 1 ? args[1] : "";
 
+                if (e.CommandName == "Editar")
+                {
+                    ViewState["IdMarcaEditar"] = idMarca; // guardar en ViewState
+                    txtModificarMarca.Text = descripcion;
+                    btnModificarMarca.Visible = true;
+                    btnCerrar.Visible = true;
+                    txtModificarMarca.Visible = true;
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+                    eliminarMarca(idMarca);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         public void altaMarca()
         {
-            string nuevaMarca = txtNuevaMarca.Text.Trim();
-            if (!string.IsNullOrEmpty(nuevaMarca))
+            try
             {
-                MarcaNegocio.altaMarca(nuevaMarca);
-                cargarGrilla(); // refresca la grilla
-                txtNuevaMarca.Text = ""; // limpia el textbox
+                string nuevaMarca = txtNuevaMarca.Text.Trim();
+                if (!string.IsNullOrEmpty(nuevaMarca))
+                {
+                    MarcaNegocio.altaMarca(nuevaMarca);
+                    cargarGrilla(); // refresca la grilla
+                    txtNuevaMarca.Text = ""; // limpia el textbox
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
         }
 
         public void modificarMarca(int id)
         {
-            string nuevaDescripcion = txtModificarMarca.Text.Trim();
-            if (id != 0)
+            try
             {
-                if (!string.IsNullOrEmpty(nuevaDescripcion))
+                string nuevaDescripcion = txtModificarMarca.Text.Trim();
+                if (id != 0)
                 {
-                    if (MarcaNegocio.modificarMarca(id, nuevaDescripcion))
+                    if (!string.IsNullOrEmpty(nuevaDescripcion))
                     {
-                        cargarGrilla(); // refresca la grilla
-                        txtModificarMarca.Text = ""; // limpia el textbox
-                        btnModificarMarca.Visible = false;
-                        btnCerrar.Visible = false;
-                        txtModificarMarca.Visible = false;
+                        if (MarcaNegocio.modificarMarca(id, nuevaDescripcion))
+                        {
+                            cargarGrilla(); // refresca la grilla
+                            txtModificarMarca.Text = ""; // limpia el textbox
+                            btnModificarMarca.Visible = false;
+                            btnCerrar.Visible = false;
+                            txtModificarMarca.Visible = false;
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(),
+                            "alerta", "alert('Ya existe una marca con ese nombre!.');", true);
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(),
-                        "alerta", "alert('Ya existe una marca con ese nombre!.');", true);
+                        "alerta", "alert('Debe completar el campo con el nuevo nombre y luego presionar aceptar!.');", true);
                     }
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('Debe completar el campo con el nuevo nombre y luego presionar aceptar!.');", true);
-                }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
         }
 
         public void eliminarMarca(int id)
         {
-            if (!MarcaNegocio.eliminarMarca(id))
+            try
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('La marca no puede ser eliminada porque está asociada a productos.');", true);
+                if (!MarcaNegocio.eliminarMarca(id))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "alerta", "alert('La marca no puede ser eliminada porque está asociada a productos.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "alerta", "alert('La marca se ha eliminado correctamente.');", true);
+                    cargarGrilla();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('La marca se ha eliminado correctamente.');", true);
-                cargarGrilla();
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
-
         }
         protected void btnAgregarMarca_Click(object sender, EventArgs e)
         {
@@ -129,10 +160,18 @@ namespace Presentacion
 
         protected void btnModificarMarca_Click(object sender, EventArgs e)
         {
-            if (ViewState["IdMarcaEditar"] != null)
+            try
             {
-                int id = (int)ViewState["IdMarcaEditar"];
-                modificarMarca(id);
+                if (ViewState["IdMarcaEditar"] != null)
+                {
+                    int id = (int)ViewState["IdMarcaEditar"];
+                    modificarMarca(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
         }
 

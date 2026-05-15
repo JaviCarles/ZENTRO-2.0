@@ -11,8 +11,8 @@
             {%>
         <div class="col">
             <div class="text-center">
-            <h3 class="mb-4 mt-4">LISTADO DE PRODUCTOS</h3>
-                </div>
+                <h3 class="mb-4 mt-4">LISTADO DE PRODUCTOS</h3>
+            </div>
             <div class="row mt-4">
                 <div class="col-6">
                     <div class="mb-3">
@@ -27,10 +27,16 @@
                         </asp:Panel>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="mb-3 input-group">
-                        <asp:Label ID="LabelOrden" class="fw-bold mt-2 me-3" runat="server" Text="ORDENAR POR"></asp:Label>
-                        <asp:DropDownList ID="DropDownOrden" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="btnBuscar_Click"></asp:DropDownList>
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                        <asp:Label ID="LabelOrden" class="form-label fw-bold mt-2 me-3 mb-3" runat="server" Text="Ordenar por"></asp:Label>
+                        <asp:DropDownList ID="DropDownOrden" OnSelectedIndexChanged="DropDownOrden_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                        <asp:Label ID="LabelCategoria" class="form-label fw-bold mt-2 me-3 mb-3" runat="server" Text="Categoria"></asp:Label>
+                        <asp:DropDownList ID="DropDownCategoria" OnSelectedIndexChanged="btnBuscar_Click" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
                 </div>
             </div>
@@ -43,7 +49,7 @@
                     <asp:BoundField HeaderText="DESCRIPCIÓN" DataField="Descripcion" />
                     <asp:BoundField HeaderText="MARCA" DataField="Marca.Descripcion" />
                     <asp:BoundField HeaderText="CATEGORIA" DataField="Categoria.Descripcion" />
-                    <asp:BoundField HeaderText="PRECIO" DataField="Precio" DataFormatString="$ {0:N0}" HtmlEncode="false" />
+                    <asp:BoundField HeaderText="PRECIO" DataField="Precio" DataFormatString="${0:N0}" HtmlEncode="false" />
                     <asp:CommandField HeaderText="ACCIÓN" ShowSelectButton="true" SelectText="✍️" />
                 </Columns>
             </asp:GridView>

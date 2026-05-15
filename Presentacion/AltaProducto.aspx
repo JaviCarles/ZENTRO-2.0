@@ -18,15 +18,15 @@
             </div>
             <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Código</label>
-                <asp:TextBox ID="txtCodigo" CssClass="form-control" runat="server" />
+                <asp:TextBox ID="txtCodigo" CssClass="form-control" runat="server" MaxLength="50" />
             </div>
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre</label>
-                <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server" />
+                <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server" MaxLength="50" />
             </div>
             <div class="mb-3">
                 <label for="textAreaDescripcion" class="form-label">Descripción</label>
-                <asp:TextBox class="form-control" TextMode="MultiLine" ID="textAreaDescripcion" Rows="3" runat="server" MaxLength="150" />
+                <asp:TextBox class="form-control" TextMode="MultiLine" ID="textAreaDescripcion" Rows="3" runat="server" MaxLength="149" />
             </div>
             <div class="mb-3">
                 <label for="DropDownListMarca" cssclass="form-label">Marca</label>
@@ -38,7 +38,7 @@
             </div>
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio</label>
-                <asp:TextBox TextMode="Number" ID="txtPrecio" CssClass="form-control" runat="server" />
+                <asp:TextBox TextMode="Number" ID="txtPrecio" CssClass="form-control" runat="server" min="0" step="1" />
             </div>
         </div>
         <div class="col-6">

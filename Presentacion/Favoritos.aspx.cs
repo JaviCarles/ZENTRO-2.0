@@ -21,7 +21,6 @@ namespace Presentacion
             if (!IsPostBack)
             {
                 cargarListadoOrden();
-                //orden = DropDownOrden.Text;
                 listarProductos();
             }
         }
@@ -32,8 +31,8 @@ namespace Presentacion
             filtro = txtBusqueda.Text;
             try
             {
-                if(usuario != null)
-                    lista = ProductoNegocio.buscar(filtro, orden,null , usuario.Id);
+                if (usuario != null)
+                    lista = ProductoNegocio.buscar(filtro, orden, null, usuario.Id);
                 //else
                 //    lista = ProductoNegocio.buscar(filtro, orden);
                 rptProductos.DataSource = lista;
@@ -41,7 +40,8 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -52,15 +52,23 @@ namespace Presentacion
 
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Favorito")
+            try
             {
-                //Capturamos el id del producto
-                int idProducto = Convert.ToInt32(e.CommandArgument);
+                if (e.CommandName == "Favorito")
+                {
+                    //Capturamos el id del producto
+                    int idProducto = Convert.ToInt32(e.CommandArgument);
 
-                // Alternar estado favorito en tu capa de negocio
-                ProductoNegocio.insertarOEliminarFav(idProducto, usuario.Id);
-                //Refrescamos el repetidor
-                listarProductos();
+                    // Alternar estado favorito en tu capa de negocio
+                    ProductoNegocio.insertarOEliminarFav(idProducto, usuario.Id);
+                    //Refrescamos el repetidor
+                    listarProductos();
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
 

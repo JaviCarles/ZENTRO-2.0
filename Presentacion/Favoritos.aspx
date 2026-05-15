@@ -31,6 +31,7 @@
         <ItemTemplate>
             <div class="col">
                 <div class="card h-100 shadow-sm border-0">
+                    <h5 class="ms-1 mt-1 mb-1"><%# Eval("Marca.Descripcion") %></h5>
                     <img src='<%# Eval("ImagenUrl") %>' 
                          class="card-img-top img-fluid" 
                          alt="Imagen no disponible"

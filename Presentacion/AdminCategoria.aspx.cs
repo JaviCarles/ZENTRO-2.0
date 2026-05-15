@@ -41,86 +41,116 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
         #endregion CARGAR GRILLA
 
         protected void dgvCategorias_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            string[] args = e.CommandArgument.ToString().Split('|');
-            idCategoria = Convert.ToInt32(args[0]);
-            string descripcion = args.Length > 1 ? args[1] : "";
+            try
+            {
+                string[] args = e.CommandArgument.ToString().Split('|');
+                idCategoria = Convert.ToInt32(args[0]);
+                string descripcion = args.Length > 1 ? args[1] : "";
 
-            if (e.CommandName == "Editar")
-            {
-                ViewState["IdCategoriaEditar"] = idCategoria; // guardar en ViewState
-                txtModificarCategoria.Text = descripcion;
-                btnModificarCategoria.Visible = true;
-                btnCerrar.Visible = true;
-                txtModificarCategoria.Visible = true;
+                if (e.CommandName == "Editar")
+                {
+                    ViewState["IdCategoriaEditar"] = idCategoria; // guardar en ViewState
+                    txtModificarCategoria.Text = descripcion;
+                    btnModificarCategoria.Visible = true;
+                    btnCerrar.Visible = true;
+                    txtModificarCategoria.Visible = true;
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+                    eliminarCategoria(idCategoria);
+                }
             }
-            else if (e.CommandName == "Eliminar")
+            catch (Exception ex)
             {
-                eliminarCategoria(idCategoria);
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
 
         public void altaCategoria()
         {
-            string nuevaCategoria = txtNuevaCategoria.Text.Trim();
-            if (!string.IsNullOrEmpty(nuevaCategoria))
+            try
             {
-                CategoriaNegocio.altaCategoria(nuevaCategoria);
-                cargarGrilla(); // refresca la grilla
-                txtNuevaCategoria.Text = ""; // limpia el textbox
+                string nuevaCategoria = txtNuevaCategoria.Text.Trim();
+                if (!string.IsNullOrEmpty(nuevaCategoria))
+                {
+                    CategoriaNegocio.altaCategoria(nuevaCategoria);
+                    cargarGrilla(); // refresca la grilla
+                    txtNuevaCategoria.Text = ""; // limpia el textbox
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
         }
-
         public void modificarCategoria(int id)
         {
-            string nuevaDescripcion = txtModificarCategoria.Text.Trim();
-            if (id != 0)
+            try
             {
-                if (!string.IsNullOrEmpty(nuevaDescripcion))
+                string nuevaDescripcion = txtModificarCategoria.Text.Trim();
+                if (id != 0)
                 {
-                    if (CategoriaNegocio.modificarCategoria(id, nuevaDescripcion))
+                    if (!string.IsNullOrEmpty(nuevaDescripcion))
                     {
-                        cargarGrilla(); // refresca la grilla
-                        txtModificarCategoria.Text = ""; // limpia el textbox
-                        btnModificarCategoria.Visible = false;
-                        btnCerrar.Visible = false;
-                        txtModificarCategoria.Visible = false;
+                        if (CategoriaNegocio.modificarCategoria(id, nuevaDescripcion))
+                        {
+                            cargarGrilla(); // refresca la grilla
+                            txtModificarCategoria.Text = ""; // limpia el textbox
+                            btnModificarCategoria.Visible = false;
+                            btnCerrar.Visible = false;
+                            txtModificarCategoria.Visible = false;
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(),
+                            "alerta", "alert('Ya existe una categoria con ese nombre!.');", true);
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, GetType(),
-                        "alerta", "alert('Ya existe una categoria con ese nombre!.');", true);
+                        "alerta", "alert('Debe completar el campo con el nuevo nombre y luego presionar aceptar!.');", true);
                     }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
+        }
+        public void eliminarCategoria(int id)
+        {
+            try
+            {
+                if (!CategoriaNegocio.eliminarCategoria(id))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "alerta", "alert('La categoria no puede ser eliminada porque está asociada a productos.');", true);
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('Debe completar el campo con el nuevo nombre y luego presionar aceptar!.');", true);
+                        "alerta", "alert('La categoria se ha eliminado correctamente.');", true);
+                    cargarGrilla();
                 }
-
             }
-        }
-
-        public void eliminarCategoria(int id)
-        {
-            if (!CategoriaNegocio.eliminarCategoria(id))
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('La categoria no puede ser eliminada porque está asociada a productos.');", true);
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(),
-                    "alerta", "alert('La categoria se ha eliminado correctamente.');", true);
-                cargarGrilla();
-            }
-
         }
         protected void btnAgregarCategoria_Click(object sender, EventArgs e)
         {

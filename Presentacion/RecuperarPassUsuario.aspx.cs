@@ -15,7 +15,7 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
@@ -27,18 +27,18 @@ namespace Presentacion
                     recuperarContraseña(txtEmail.Text);
                     txtEmail.Text = string.Empty;
                     lblMensaje.Text = "Se ha enviado una nueva clave a su correo.";
-                    lblMensaje.CssClass = "text-success mt-3 d-block";
+                    lblMensaje.CssClass = "text-success mt-3 d-block fw-bold";
                 }
                 else
                 {
                     lblMensaje.Text = "El correo ingresado no pertenece a una cuenta existente.";
-                    lblMensaje.CssClass = "text-danger mt-3 d-block";
+                    lblMensaje.CssClass = "text-danger mt-3 d-block fw-bold";
                 }
             }
             else
             {
                 lblMensaje.Text = "Escriba su correo electrónico.";
-                lblMensaje.CssClass = "text-danger mt-3 d-block";
+                lblMensaje.CssClass = "text-danger mt-3 d-block fw-bold";
             }
         }
 

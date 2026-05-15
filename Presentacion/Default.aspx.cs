@@ -12,8 +12,8 @@ namespace Presentacion
     public partial class ProductoHome : System.Web.UI.Page
     {
         public Usuario usuario;
-        public List<Producto> lista {  get; set; }
-        string orden,filtro = "";
+        public List<Producto> lista { get; set; }
+        string orden, filtro = "";
         int idCategoria;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +27,7 @@ namespace Presentacion
                 cargarListadoCategoria();
                 buscar();
             }
-            
+
         }
 
         public void listarProductos()
@@ -43,7 +43,8 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -56,19 +57,22 @@ namespace Presentacion
 
         public void cargarListadoCategoria()
         {
-            List<Categoria> listaCategoria = CategoriaNegocio.listaCategorias();
-            Categoria cat = new Categoria { Id = 0, Descripcion = "Todas" };
-            listaCategoria.Add(cat);
-            DropDownCategoria.DataSource = listaCategoria ;
-            DropDownCategoria.DataTextField = "Descripcion";
-            DropDownCategoria.DataValueField = "Id";
-            DropDownCategoria.SelectedValue= "0";
-            DropDownCategoria.DataBind();
-        }
-
-        protected void btnFavorito_Click(object sender, EventArgs e)
-        {
-            
+            try
+            {
+                List<Categoria> listaCategoria = CategoriaNegocio.listaCategorias();
+                Categoria cat = new Categoria { Id = 0, Descripcion = "Todas" };
+                listaCategoria.Add(cat);
+                DropDownCategoria.DataSource = listaCategoria;
+                DropDownCategoria.DataTextField = "Descripcion";
+                DropDownCategoria.DataValueField = "Id";
+                DropDownCategoria.SelectedValue = "0";
+                DropDownCategoria.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -78,10 +82,18 @@ namespace Presentacion
 
         public void buscar()
         {
-            orden = DropDownOrden.Text;
-            filtro = txtBusqueda.Text;
-            idCategoria = int.Parse(DropDownCategoria.SelectedValue);
-            listarProductos();
+            try
+            {
+                orden = DropDownOrden.Text;
+                filtro = txtBusqueda.Text;
+                idCategoria = int.Parse(DropDownCategoria.SelectedValue);
+                listarProductos();
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+            }
         }
         protected void DropDownOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -90,14 +102,22 @@ namespace Presentacion
 
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Favorito")
+            try
             {
-                int idProducto = Convert.ToInt32(e.CommandArgument);
+                if (e.CommandName == "Favorito")
+                {
+                    int idProducto = Convert.ToInt32(e.CommandArgument);
 
-                // Alternar estado favorito en tu capa de negocio
-                ProductoNegocio.insertarOEliminarFav(idProducto, usuario.Id);
-                //Refrescamos el repetidor
-                listarProductos();
+                    // Alternar estado favorito en tu capa de negocio
+                    ProductoNegocio.insertarOEliminarFav(idProducto, usuario.Id);
+                    //Refrescamos el repetidor
+                    listarProductos();
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
     }

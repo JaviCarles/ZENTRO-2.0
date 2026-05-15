@@ -36,7 +36,7 @@ namespace Presentacion
                 if (usuario != null)
                 {
                     Session["usuario"] = usuario; // guardamos en Session el user.
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Default.aspx", false);
                 }
                 else
                 {
@@ -46,7 +46,8 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex);
+                Session["error"] = ex.ToString();   
+                Response.Redirect("Error.aspx", false);
             }
         }
     }

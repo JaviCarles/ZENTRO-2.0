@@ -14,12 +14,16 @@ namespace Presentacion
     {
         List<Producto> lista = new List<Producto>();
         string orden, filtro = "";
+        int idCategoria;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                cargarCategorias();
                 cargarListadoOrden();
                 orden = DropDownOrden.Text;
+
                 PaginaActual = 0;
                 listarProductos();
             }
@@ -32,9 +36,16 @@ namespace Presentacion
 
         public void listarProductos()
         {
+            orden = DropDownOrden.Text;
+            filtro = txtBusqueda.Text;
+            idCategoria = Convert.ToInt32(DropDownCategoria.SelectedValue);
             try
             {
-                lista = ProductoNegocio.buscar(filtro, orden);
+                if (idCategoria != 0)
+                    lista = ProductoNegocio.buscar(filtro, orden, idCategoria);
+                else
+                    lista = ProductoNegocio.buscar(filtro, orden);
+
                 dgvProductos.PageSize = 30;
                 dgvProductos.PageIndex = PaginaActual;
                 dgvProductos.DataSource = lista;
@@ -46,24 +57,74 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex);
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
+
+        #region CARGAR DESPLEGABLE CATEGORIA
+        public void cargarCategorias()
+        {
+            try
+            {
+                List<Categoria> categorias = new List<Categoria>();
+                categorias = CategoriaNegocio.listaCategorias();
+                Categoria cat = new Categoria { Id = 0, Descripcion = "Todas" };
+                categorias.Add(cat);
+                if (categorias != null && categorias.Count > 0)
+                {
+                    DropDownCategoria.DataSource = categorias;
+                    DropDownCategoria.DataTextField = "Descripcion";
+                    DropDownCategoria.DataValueField = "Id";
+                    DropDownCategoria.SelectedValue = "0";
+                    DropDownCategoria.DataBind();
+                }
+                else
+                {
+                    // Manejo de error o mensaje al usuario
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
+        }
+        #endregion CARGAR DESPLEGABLE CATEGORIA
+
+        #region CARGAR DESPLEGABLE ORDEN
         public void cargarListadoOrden()
         {
-            List<string> listaOrden = new List<string> { "NOMBRE", "CATEGORIA", "MARCA", "PRECIO" };
+            List<string> listaOrden = new List<string> { "Nombre", "Marca", "Precio" };
             DropDownOrden.DataSource = listaOrden;
             DropDownOrden.DataBind();
         }
+        #endregion CARGAR DESPLEGABLE ORDEN
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AltaProducto.aspx");
+            try
+            {
+                Response.Redirect("AltaProducto.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void dgvProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string id= dgvProductos.SelectedDataKey.Value.ToString();
-            Response.Redirect("AltaProducto.aspx?id=" + id);
+            try
+            {
+                string id = dgvProductos.SelectedDataKey.Value.ToString();
+                Response.Redirect("AltaProducto.aspx?id=" + id, false);
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnAnterior_Click(object sender, EventArgs e)
@@ -85,10 +146,13 @@ namespace Presentacion
 
         }
 
+        protected void DropDownOrden_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listarProductos();
+        }
+
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            orden = DropDownOrden.Text;
-            filtro = txtBusqueda.Text;
             listarProductos();
         }
     }

@@ -68,13 +68,15 @@ namespace Presentacion
                     else
                     {
                         lblError.Text = "Ya existe un usuario registrado con ese email.";
-                        lblError.Focus();
+                        ScriptManager.RegisterStartupScript(this, GetType(), "scrollError",
+                            "document.getElementById('" + lblError.ClientID + "').scrollIntoView();", true);
                     }
                 }
                 catch (Exception ex)
                 {
-                    lblError.Focus();
                     lblError.Text = "Ocurrió un error al intentar dar de alta el usuario.";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "scrollError",
+                        "document.getElementById('" + lblError.ClientID + "').scrollIntoView();", true);
                 }
             }
         }
@@ -115,7 +117,8 @@ namespace Presentacion
                 else
                 {
                     lblError.Text = "No ha modificado ningún campo, presione 'Cancelar' si desea salir.";
-                    lblError.Focus();
+                    ScriptManager.RegisterStartupScript(this, GetType(), "scrollError",
+                        "document.getElementById('" + lblError.ClientID + "').scrollIntoView();", true);
                 }
             }
         }
@@ -188,13 +191,18 @@ namespace Presentacion
                 string.IsNullOrEmpty(txtConfirmPass.Text) ||
                 string.IsNullOrEmpty(txtImagen.Text))
             {
-                lblError.Focus();
                 lblError.Text = "Todos los campos son obligatorios.";
+                ScriptManager.RegisterStartupScript(this, GetType(), "scrollError",
+                    "document.getElementById('" + lblError.ClientID + "').scrollIntoView();", true);
+               
                 return false;
             }
             else if (txtPass.Text != txtConfirmPass.Text)
             {
                 lblError.Text = "Las contraseñas no coinciden.";
+                ScriptManager.RegisterStartupScript(this, GetType(), "scrollError",
+                    "document.getElementById('" + lblError.ClientID + "').scrollIntoView();", true);
+                
                 return false;
             }
             else

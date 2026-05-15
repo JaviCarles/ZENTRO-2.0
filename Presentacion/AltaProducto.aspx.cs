@@ -94,12 +94,20 @@ namespace Presentacion
         }
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Session["idProducto"] != null && (int)Session["idProducto"] != 0)
+            try
             {
-                modificarProducto((Producto)Session["Producto"]);//Aquí usamos el producto guardado en session
+                if (Session["idProducto"] != null && (int)Session["idProducto"] != 0)
+                {
+                    modificarProducto((Producto)Session["Producto"]);//Aquí usamos el producto guardado en session
+                }
+                else
+                    altaProducto(); // Si request no recibe id, no entrará en el if porque se trata de un alta de producto.
             }
-            else
-                altaProducto(); // Si request no recibe id, no entrará en el if porque se trata de un alta de producto.
+            catch (Exception ex)
+            {
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+            }
         }
         public Producto mapearDatos()//devuelve un producto mapaedo desde el formulario.
         {
@@ -130,21 +138,25 @@ namespace Presentacion
                 }
                 catch (Exception ex)
                 {
-                    lblError.Text = "Ocurrió un error al guardar el producto.";
+                    Session["error"] = ex.ToString();
+                    Response.Redirect("Error.aspx", false);
                 }
             }
         }
         public Producto obtenerProducto(int id)//Devuelve el producto correspondiente al id.
         {
-            Producto producto = new Producto();
+            Producto producto;
             try
             {
+                producto = new Producto();
                 producto = ProductoNegocio.obtenerProducto(id);
                 return producto;
             }
             catch (Exception ex)
             {
-                return producto;
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
+                return null;
             }
         }
         public bool seModificoCampo(Producto producto)
@@ -175,7 +187,8 @@ namespace Presentacion
                         }
                         catch (Exception ex)
                         {
-
+                            Session["error"] = ex.ToString();
+                            Response.Redirect("Error.aspx", false);
                         }
                     }
                 }
@@ -203,17 +216,7 @@ namespace Presentacion
                 return true;
         }
         #endregion VALIDACIONES
-        /*public void buscarProducto(int id)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }*/
+       
         public void cargarDesdeDb()// carga los campos con el Prodcuto traído desde la DB
         {
             if ((Producto)Session["Producto"] != null)
@@ -248,7 +251,8 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-
+                Session["error"] = ex.ToString();
+                Response.Redirect("Error.aspx", false);
             }
         }
     }
