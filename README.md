@@ -1,8 +1,8 @@
 📌 ZENTRO 2.0
-Bienvenidos a mi primera aplicación web realizada con ASP.NET WebForms.
-Este proyecto académico funciona como una landing page de ventas, donde se aplican conceptos de programación en capas, diseño responsivo y conexión a base de datos.
+Aplicación web realizada con ASP.NET WebForms.
+Este proyecto académico funciona como una landing page de ventas, donde se aplican conceptos de programación en capas, diseño responsivo, conexión a base de datos y despliegue en servidor externo.
 
-🎯 Objetivo del Proyecto
+🎯 OBJETIVO DEL PROYECTO
 Zentro es una página de destino (landing page) que simula una tienda online.
 
 En el Home se visualiza un listado de productos en formato de tarjetas.
@@ -11,39 +11,49 @@ Se pueden filtrar por categorías y ordenar alfabéticamente por nombre, marca o
 
 Incluye un campo de búsqueda para localizar productos por nombre, marca o categoría específica.
 
-👥 Roles de Usuario
-Usuarios registrados: acceso a su cuenta y listado de productos favoritos.
+👥 ROLES DE USUARIO
+-Usuarios registrados: acceso a su cuenta y listado de productos favoritos.
 
-Administradores: además de favoritos, pueden gestionar Productos, Marcas y Categorías desde el panel de administración.
+-Administradores: además de favoritos, pueden gestionar Productos, Marcas y Categorías desde el panel de administración.
 
-🛒 Funcionalidades principales
-Cada tarjeta de producto incluye:
+🛒 FUNCIONALIDADES PRINCIPALES
+-Búsqueda filtrada de productos.
 
-Botón “Ver detalles” con información específica.
+-Visualización de listado de productos en formato de tarjeta.
+.Cada tarjeta de producto incluye:
+.Botón “Ver detalles” con información específica.
+.Botón de WhatsApp, que conecta directamente con el vendedor para consultas y compra del producto.
+.Botón de "Agregar a favoritos"
 
-Botón de WhatsApp, que conecta directamente con el vendedor para consultas y compra del producto.
+-Visualización de Página de productos favoritos
 
-⚙️ Especificaciones Técnicas
-Arquitectura en 3 capas: Presentación, Negocio y Datos.
+-Edición de los datos de perfil de usuario
 
-Base de datos: SQL Server.
+-Además de lo mencionado, en modo ADMINISTRADOR se puede realizar: 
+.Gestión de los productos de la web: Agregar, modificar o eliminar.
+.Gestión de las marcas y categorias.
 
-Hosting: Somee.
+⚙️ ESPECIFICACIONES TÉCNICAS
+-Arquitectura en 3 capas: Presentación, Negocio y Datos.
 
-🛠️ Tecnologías utilizadas
-ASP.NET WebForms
+-Base de datos: SQL Server.
 
-Bootstrap 5
+-Hosting: Somee.
 
-ADO.NET
+🛠️ TECNOLOGÍAS UTILIZADAS
+-ASP.NET WebForms
 
-CSS
+-Bootstrap 5
 
-C#
+-ADO.NET
 
-.NET Framework 4.8
+-CSS
 
-📚 Aprendizajes
+-C#
+
+-.NET Framework 4.8
+
+📚 APRENDIZAJES
 Durante el desarrollo de este proyecto aprendí a:
 
 Implementar una arquitectura en capas para separar responsabilidades.
@@ -58,4 +68,4 @@ Gestionar roles de usuario y administración de datos.
 
 🎓 Contexto
 Este proyecto fue realizado con fines académicos como parte de un curso de tecnología .NET.
-Es una precursora de un sitio web de ventas más completo, que será desarrollado en futuras versiones.
+Es precursor de un sitio web de ventas más completo, que será desarrollado en futuras versiones.
