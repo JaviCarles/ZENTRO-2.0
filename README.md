@@ -47,4 +47,4 @@ Gestión de roles de usuario y administración de datos.
 👉 Podés probar la aplicación aquí:
 http://zentro-net.somee.com/Default.aspx
 
-💡 Este proyecto marca un antes y un después para mí: pasó de ser un ejercicio académico a convertirse en mi primera app real desplegada, lista para crecer con nuevas funcionalidades como carrito de compras y pasarela de pagos.
+💡 Este proyecto marca un gran cambio para mí carrera: pasó de ser un ejercicio académico a convertirse en mi primera app real desplegada, lista para crecer con nuevas funcionalidades.
