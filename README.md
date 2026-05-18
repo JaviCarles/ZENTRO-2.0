@@ -82,3 +82,7 @@ Gestionar roles de usuario y administración de datos.
 🎓 Contexto
 Este proyecto fue realizado con fines académicos como parte de un curso de tecnología .NET.
 Es precursor de un sitio web de ventas más completo, que será desarrollado en futuras versiones.
+
+Aquí les dejo el enlace asi pueden probar la app.
+
+http://zentro-net.somee.com/Default.aspx
