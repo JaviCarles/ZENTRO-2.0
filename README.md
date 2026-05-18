@@ -1,88 +1,50 @@
 📌 ZENTRO 2.0
 
-Aplicación web realizada con ASP.NET WebForms.
-Este proyecto académico funciona como una landing page de ventas, donde se aplican conceptos de programación en capas, diseño responsivo, conexión a base de datos y despliegue en servidor externo.
+🚀 Mi primera aplicación web real desplegada
 
-🎯 OBJETIVO DEL PROYECTO
+Después de semanas de trabajo, hoy puedo compartir que logré publicar Zentro 2.0, una tienda online desarrollada con ASP.NET WebForms y desplegada en servidor externo (Somee).
 
-Zentro es una página de destino (landing page) que simula una tienda online.
+Este proyecto nació como parte de un curso de tecnología .NET, pero terminó convirtiéndose en una aplicación funcional para la venta de indumentaria.
 
-En el Home se visualiza un listado de productos en formato de tarjetas.
+🔹 Características principales
 
-Se pueden filtrar por categorías y ordenar alfabéticamente por nombre, marca o precio.
+Landing page con listado de productos en formato de tarjetas.
 
-Incluye un campo de búsqueda para localizar productos por nombre, marca o categoría específica.
+Filtros por categoría y ordenamiento por nombre, marca o precio.
 
-👥 ROLES DE USUARIO
+Búsqueda por nombre, marca o categoría.
 
--Usuarios registrados: acceso a su cuenta y listado de productos favoritos.
+Botón de WhatsApp para contacto directo con el vendedor.
 
--Administradores: además de favoritos, pueden gestionar Productos, Marcas y Categorías desde el panel de administración.
+Sistema de favoritos para usuarios registrados.
 
-🛒 FUNCIONALIDADES PRINCIPALES
+Panel de administración para gestionar productos, marcas y categorías.
 
--Búsqueda filtrada de productos.
+🔹 Tecnologías utilizadas
 
--Visualización de listado de productos en formato de tarjeta.
+ASP.NET WebForms
 
-.Cada tarjeta de producto incluye:
+Bootstrap 5
 
-.Botón “Ver detalles” con información específica.
+ADO.NET
 
-.Botón de WhatsApp, que conecta directamente con el vendedor para consultas y compra del producto.
+SQL Server
 
-.Botón de "Agregar a favoritos"
+C# / .NET Framework 4.8
 
--Visualización de Página de productos favoritos
+🔹 Aprendizajes clave
 
--Edición de los datos de perfil de usuario
+Arquitectura en 3 capas (Presentación, Negocio, Datos).
 
--Además de lo mencionado, en modo ADMINISTRADOR se puede realizar: 
+Conexión remota a SQL Server en hosting externo.
 
-.Gestión de los productos de la web: Agregar, modificar o eliminar.
+Diseño responsivo con Bootstrap y CSS.
 
-.Gestión de las marcas y categorias.
+Integración de enlaces externos como medio de contacto directo.
 
-⚙️ ESPECIFICACIONES TÉCNICAS
+Gestión de roles de usuario y administración de datos.
 
--Arquitectura en 3 capas: Presentación, Negocio y Datos.
-
--Base de datos: SQL Server.
-
--Hosting: Somee.
-
-🛠️ TECNOLOGÍAS UTILIZADAS
-
--ASP.NET WebForms
-
--Bootstrap 5
-
--ADO.NET
-
--CSS
-
--C#
-
--.NET Framework 4.8
-
-📚 APRENDIZAJES
-
-Durante el desarrollo de este proyecto aprendí a:
-
-Implementar una arquitectura en capas para separar responsabilidades.
-
-Configurar conexión remota a SQL Server en un hosting externo.
-
-Adaptar diseño responsivo con Bootstrap y CSS.
-
-Integrar enlaces externos (WhatsApp) como medio de contacto directo.
-
-Gestionar roles de usuario y administración de datos.
-
-🎓 Contexto
-Este proyecto fue realizado con fines académicos como parte de un curso de tecnología .NET.
-Es precursor de un sitio web de ventas más completo, que será desarrollado en futuras versiones.
-
-Aquí les dejo el enlace asi pueden probar la app.
-
+👉 Podés probar la aplicación aquí:
 http://zentro-net.somee.com/Default.aspx
+
+💡 Este proyecto marca un antes y un después para mí: pasó de ser un ejercicio académico a convertirse en mi primera app real desplegada, lista para crecer con nuevas funcionalidades como carrito de compras y pasarela de pagos.
