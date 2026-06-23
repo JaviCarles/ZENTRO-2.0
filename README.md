@@ -2,7 +2,7 @@
 
 🚀 Mi primera aplicación web real desplegada
 
-Después de semanas de trabajo, hoy puedo compartir que logré publicar Zentro 2.0, una tienda online desarrollada con ASP.NET WebForms y desplegada en servidor externo (Somee).
+Después de semanas de trabajo puedo compartir Zentro 2.0, una tienda online desarrollada con ASP.NET WebForms y desplegada en servidor externo (SmarterASP) con dominio personal.
 
 Este proyecto nació como parte de un curso de tecnología .NET, pero terminó convirtiéndose en una aplicación funcional para la venta de indumentaria.
 
@@ -32,6 +32,8 @@ SQL Server
 
 C# / .NET Framework 4.8
 
+Librerías para utilizar Cloudflare 
+
 🔹 Aprendizajes clave
 
 Arquitectura en 3 capas (Presentación, Negocio, Datos).
@@ -40,11 +42,11 @@ Conexión remota a SQL Server en hosting externo.
 
 Diseño responsivo con Bootstrap y CSS.
 
-Integración de enlaces externos como medio de contacto directo.
+Integración de Api externa como medio de almacenamiento directo (Cloudflare).
 
 Gestión de roles de usuario y administración de datos.
 
-👉 Podés probar la aplicación aquí:
-http://zentro-net.somee.com/Default.aspx
+👉 Podés ver la aplicación web aquí:
+ringoclothes.com
 
 💡 Este proyecto marca un gran cambio para mí carrera: pasó de ser un ejercicio académico a convertirse en mi primera app real desplegada, lista para crecer con nuevas funcionalidades.
