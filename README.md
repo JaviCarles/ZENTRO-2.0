@@ -32,7 +32,7 @@ SQL Server
 
 C# / .NET Framework 4.8
 
-Librerías para utilizar Cloudflare 
+Librerías para consumir archivos audiovisuales desde Cloudflare 
 
 🔹 Aprendizajes clave
 
@@ -43,6 +43,8 @@ Conexión remota a SQL Server en hosting externo.
 Diseño responsivo con Bootstrap y CSS.
 
 Integración de Api externa como medio de almacenamiento directo (Cloudflare).
+
+Despliegue de App Web en servidor.
 
 Gestión de roles de usuario y administración de datos.
 
