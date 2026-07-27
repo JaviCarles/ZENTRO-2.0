@@ -1,98 +1,130 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Zentro.Master" AutoEventWireup="true" CodeBehind="AdminCategoria.aspx.cs" Inherits="Presentacion.AdminCategoria" %>
+﻿<%@ Page Title="Administrar Categorías - Ringo Clothes" Language="C#" MasterPageFile="~/Zentro.Master" AutoEventWireup="true" CodeBehind="AdminCategoria.aspx.cs" Inherits="Presentacion.AdminCategoria" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   <%if (usuario != null && usuario.Admin)
-    { %>
-    <h2 class="mt-1 md-2">CATEGORIAS</h2>
 
-<div class="row">
-    <div class="col-md-6 text-center">
-        <asp:GridView ID="dgvCategorias" runat="server"
-            DataKeyNames="Id" AutoGenerateColumns="false" CssClass="table table-striped"
-            OnRowCommand="dgvCategorias_RowCommand">
-            <Columns>
-                <asp:BoundField HeaderText="NOMBRE" DataField="Descripcion" />
-                <asp:TemplateField HeaderText="ACCIONES">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="btnEditar" runat="server"
-                            CommandName="Editar"
-                            CommandArgument='<%# Eval("Id") + "|" + Eval("Descripcion")%>'
-                            CssClass="btn btn-sm btn-outline-primary me-2">
-                                Editar
-                        </asp:LinkButton>
-                        <asp:LinkButton ID="btnEliminar" runat="server"
-                            CommandName="Eliminar"
-                            CommandArgument='<%# Eval("Id") %>'
-                            CssClass="btn btn-sm btn-outline-danger"
-                            OnClientClick="return confirm('¿Estás seguro de que deseas eliminar esta categoria?');">
-                                Eliminar
-                        </asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <EmptyDataTemplate>
-                <div class="alert alert-info text-center">
-                    No hay categorias registradas.
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="container my-4">
+
+        <% if (usuario != null && usuario.Admin)
+            { %>
+
+        <div class="text-center mb-4">
+            <h2 class="titulo-admin text-uppercase">Gestión de Categorías</h2>
+            <p class="text-black-50 small">Panel de configuración para los rubros y familias del catálogo de productos</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-7">
+                <div class="card bg-transparent border-0 shadow-lg">
+                    <div class="table-responsive rounded border border-secondary border-opacity-25">
+                        <asp:GridView ID="dgvCategorias"
+                            runat="server"
+                            DataKeyNames="Id"
+                            AutoGenerateColumns="false"
+                            CssClass="table table-pampa-admin mb-0"
+                            OnRowCommand="dgvCategorias_RowCommand">
+                            <Columns>
+                                <asp:BoundField HeaderText="Nombre de la Categoría" DataField="Descripcion" HeaderStyle-CssClass="w-75" />
+
+                                <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center text-nowrap">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="btnEditar" runat="server"
+                                            CommandName="Editar"
+                                            CommandArgument='<%# Eval("Id") + "|" + Eval("Descripcion")%>'
+                                            CssClass="btn btn-sm text-warning me-2 fs-5"
+                                            title="Editar Categoría">
+            <i class="bi bi-pencil-square"></i>
+        </asp:LinkButton>
+
+                                        <asp:LinkButton ID="btnEliminar" runat="server"
+                                            CommandName="Eliminar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            CssClass="btn btn-sm text-danger fs-5"
+                                            title="Eliminar Categoría"
+                                            OnClientClick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?');">
+            <i class="bi bi-trash3-fill"></i>
+        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EmptyDataTemplate>
+                                <div class="alert alert-dark border-secondary border-opacity-25 text-center my-3 text-white-50">
+                                    <i class="bi bi-info-circle-fill me-2"></i>No hay categorías registradas actualmente.
+                                   
+                                </div>
+                            </EmptyDataTemplate>
+                        </asp:GridView>
+                    </div>
                 </div>
-            </EmptyDataTemplate>
-        </asp:GridView>
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <div class="input-group">
-                    <asp:TextBox ID="txtNuevaCategoria" runat="server"
-                        CssClass="form-control"
-                        Placeholder="Ingrese la nueva categoria">
-                    </asp:TextBox>
-                    <asp:Button ID="btnAgregarCategoria" runat="server"
-                        Text="Agregar"
-                        CssClass="btn btn-primary"
-                        OnClick="btnAgregarCategoria_Click" />
+            </div>
+
+            <div class="col-12 col-lg-5">
+
+                <div class="card p-3 mb-4" style="background-color: rgba(43, 30, 22, 0.4); border: 1px solid rgba(243, 235, 224, 0.15);">
+                    <h5 class="text-uppercase mb-3" style="color: #cca97c; font-size: 0.9rem; letter-spacing: 1px;">
+                        <i class="bi bi-plus-circle me-2"></i>Agregar Nueva Categoría
+                        </h5>
+                    <div class="input-group shadow-sm">
+                        <asp:TextBox ID="txtNuevaCategoria" runat="server" CssClass="form-control" Placeholder="Ej: Planchas, Discos, Cuchillos..."></asp:TextBox>
+                        <asp:Button ID="btnAgregarCategoria" runat="server" Text="Agregar" CssClass="btn btn-pampa-primary" OnClick="btnAgregarCategoria_Click" />
+                    </div>
                 </div>
-                <%-- modal que se mostrará si no puede ser eliminada una categoria --%>
-                <div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Aviso</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                La categoria no puede ser eliminada porque está asociada a productos.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            </div>
+
+                <asp:Panel ID="panelModificar" runat="server">
+                    <% if (txtModificarCategoria.Visible)
+                        { %>
+                    <div class="card p-3 border-warning border-opacity-25 shadow-lg animate__animated animate__fadeIn" style="background-color: rgba(43, 30, 22, 0.7);">
+                        <h5 class="text-warning text-uppercase mb-3" style="font-size: 0.9rem; letter-spacing: 1px;">
+                            <i class="bi bi-pencil-fill me-2"></i>Modificar Seleccionada
+                                </h5>
+                        <div class="mb-3">
+                            <asp:TextBox ID="txtModificarCategoria" runat="server" CssClass="form-control" Placeholder="Nombre modificado..."></asp:TextBox>
                         </div>
+                        <div class="d-flex gap-2">
+                            <asp:Button ID="btnModificarCategoria" runat="server" Text="Guardar Cambios" CssClass="btn btn-success flex-grow-1" OnClick="btnModificarCategoria_Click" />
+                            <asp:Button ID="btnCerrar" runat="server" Text="Cancelar" CssClass="btn btn-outline-light" OnClick="btnCerrar_Click" />
+                        </div>
+                    </div>
+                    <% } %>
+                </asp:Panel>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-white border-secondary border-opacity-50" style="background-color: #2b1e16; backdrop-filter: blur(10px);">
+                    <div class="modal-header border-secondary border-opacity-25">
+                        <h5 class="modal-title fw-bold" style="color: #cca97c;">
+                            <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>Acción Bloqueada
+                            </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body py-4 text-center">
+                        <p class="mb-0 fs-5" style="color: #e2dacb;">La categoría seleccionada no puede ser eliminada porque contiene productos vinculados en el catálogo.</p>
+                    </div>
+                    <div class="modal-footer border-secondary border-opacity-25">
+                        <button type="button" class="btn btn-pampa-primary px-4 rounded-pill" data-bs-dismiss="modal">Entendido</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="col-md-6">
-            <div class="input-group">
-                <asp:TextBox ID="txtModificarCategoria" runat="server"
-                    CssClass="form-control"
-                    Placeholder="Modifique la categoria" Visible="False">
-                </asp:TextBox>
-                <asp:Button ID="btnModificarCategoria" runat="server"
-                    Text="Modificar"
-                    CssClass="btn btn-primary"
-                    OnClick="btnModificarCategoria_Click" Visible="False" />
-                <asp:Button ID="btnCerrar" runat="server"
-                    Text="Cerrar"
-                    CssClass="btn btn-danger"
-                    OnClick="btnCerrar_Click" Visible="False" />
+
+        <% }
+            else
+            { %>
+
+        <div class="row my-5 py-5">
+            <div class="col-12 text-center text-black-50">
+                <i class="bi bi-shield-lock-fill text-danger display-1 mb-3"></i>
+                <h2 class="fw-bold">Acceso Restringido</h2>
+                <p class="lead">No tienes los permisos administrativos necesarios para ingresar a esta sección.</p>
+                <a href="Default.aspx" class="btn btn-outline-light mt-3 rounded-pill px-4">Volver al Inicio</a>
             </div>
         </div>
+
+        <% } %>
     </div>
-</div>
-    <%}
-else
-{ %>
-<div class="col text-center">
-    <h2>NO TIENES LOS PERMISOS PARA INGRESAR AQUÍ.</h2>
-</div>
-<%}%>
 </asp:Content>

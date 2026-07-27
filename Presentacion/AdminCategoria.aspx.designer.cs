@@ -42,6 +42,15 @@ namespace Presentacion
         protected global::System.Web.UI.WebControls.Button btnAgregarCategoria;
 
         /// <summary>
+        /// Control panelModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelModificar;
+
+        /// <summary>
         /// Control txtModificarCategoria.
         /// </summary>
         /// <remarks>

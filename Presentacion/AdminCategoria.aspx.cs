@@ -20,6 +20,16 @@ namespace Presentacion
             {
                 usuario = (Usuario)Session["usuario"];
             }
+
+            // ¡AGREGÁ ESTO AQUÍ!
+            if (!IsPostBack)
+            {
+                // Forzamos que arranquen ocultos en el primer ingreso
+                txtModificarCategoria.Visible = false;
+                btnModificarCategoria.Visible = false;
+                btnCerrar.Visible = false;
+            }
+
             cargarGrilla();
         }
 
@@ -136,13 +146,12 @@ namespace Presentacion
             {
                 if (!CategoriaNegocio.eliminarCategoria(id))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                        "alerta", "alert('La categoria no puede ser eliminada porque está asociada a productos.');", true);
+                    // ¡Invocamos el modal premium que armamos en el HTML en lugar del alert clásico!
+                    ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "$('#modalAviso').modal('show');", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(),
-                        "alerta", "alert('La categoria se ha eliminado correctamente.');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alerta", "alert('La categoría se ha eliminado correctamente.');", true);
                     cargarGrilla();
                 }
             }

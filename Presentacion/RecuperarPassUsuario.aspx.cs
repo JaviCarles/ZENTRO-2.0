@@ -15,71 +15,92 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+                lblMensaje.Text = string.Empty;
+            }
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtEmail.Text))
+            string emailIngresado = txtEmail.Text.Trim();
+
+            if (!string.IsNullOrEmpty(emailIngresado))
             {
-                if (existeUsuario(txtEmail.Text))
+                // Verificamos si el usuario existe en la Base de Datos
+                if (UsuarioNegocio.existeUsuario(emailIngresado))
                 {
-                    recuperarContraseña(txtEmail.Text);
-                    txtEmail.Text = string.Empty;
-                    lblMensaje.Text = "Se ha enviado una nueva clave a su correo.";
-                    lblMensaje.CssClass = "text-success mt-3 d-block fw-bold";
+                    enviarCorreoRecuperacion(emailIngresado);
                 }
                 else
                 {
                     lblMensaje.Text = "El correo ingresado no pertenece a una cuenta existente.";
-                    lblMensaje.CssClass = "text-danger mt-3 d-block fw-bold";
+                    lblMensaje.CssClass = "text-danger small fw-bold mt-2 d-inline-block";
                 }
             }
             else
             {
-                lblMensaje.Text = "Escriba su correo electrónico.";
-                lblMensaje.CssClass = "text-danger mt-3 d-block fw-bold";
+                lblMensaje.Text = "Por favor, escriba su correo electrónico.";
+                lblMensaje.CssClass = "text-danger small fw-bold mt-2 d-inline-block";
             }
         }
 
-        public static bool existeUsuario(string email)
+        private void enviarCorreoRecuperacion(string usuarioEmail)
         {
-            return UsuarioNegocio.existeUsuario(email);
-        }
-
-        public void recuperarContraseña(string usuarioEmail)
-        {
-            Usuario usuario = new Usuario();
-            // Generar una contraseña 
+            // 1. Creamos la contraseña provisoria y actualizamos la DB
             string nuevaPassword = Utilidades.GenerarPasswordAleatoria();
-            //Enviamos nueva Pass a la DB.
+
+            Usuario usuario = new Usuario();
             usuario.Email = usuarioEmail;
-            usuario.Pass = nuevaPassword;
+            usuario.Pass = nuevaPassword; // Si usás hash/encriptación en DB, aplicalo acá
 
             try
             {
+                // Impactamos el cambio en la base de datos
                 UsuarioNegocio.recuperarContraseña(usuario);
-                // Crear el mensaje
+
+                // 2. Estructuramos el MailMessage
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("no-reply@tusistema.com");
-                mail.To.Add(usuarioEmail);
-                mail.Subject = "Recuperación de contraseña";
-                mail.Body = "Hola, recibimos tu solicitud de recuperación de contraseña. Tu nueva clave temporal es: " + nuevaPassword + ". Por favor cámbiala al ingresar.";
 
+                // IMPORTANTE: Poné acá el mail real que vas a usar para despachar los correos del sistema
+                string mailSoporte = "javiercarles1206@gmail.com";
 
-                // Configurar SMTP para Hotmail/Outlook
-                SmtpClient smtp = new SmtpClient("sandbox.smtp.mailtrap.io", 587);
-                smtp.Credentials = new NetworkCredential("b7eb1147c08ebd", "5c0767fa1b0f84");
+                mail.From = new MailAddress(mailSoporte, "Ringo Clothes");
+                mail.To.Add(usuarioEmail); // Se le envía al mail dinámico que cargó el cliente
+                mail.Subject = "Nueva contraseña temporal - Ringo Clothes";
+
+                // Diseño del cuerpo del mail en HTML
+                mail.Body = $"<div style='font-family: sans-serif; color: #333;'>" +
+                            $"<h2>Hola,</h2>" +
+                            $"<p>Recibimos una solicitud para restablecer la contraseña de tu cuenta.</p>" +
+                            $"<p>Tu clave temporal de acceso es: <span style='font-size: 1.2rem; font-weight: bold; color: #cca97c; background: #fafdff; padding: 4px 8px; border: 1px solid #ddd; rounded: 4px;'>{nuevaPassword}</span></p>" +
+                            $"<p>Por cuestiones de seguridad, te recomendamos cambiarla desde tu perfil ni bien ingreses al sistema.</p>" +
+                            $"<hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;' />" +
+                            $"<p style='font-size: 0.9rem; color: #777;'>Soporte Técnico - Ringo Clothes</p>" +
+                            $"</div>";
+                mail.IsBodyHtml = true;
+
+                // 3. Configuración del Servidor SMTP de Gmail Real
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
 
-                // Enviar
+                // ⚠️ REEMPLAZAR: "tu_cuenta_sistema@gmail.com" por tu mail y las "xxxx..." por la clave de 16 dígitos de Google
+                smtp.Credentials = new NetworkCredential(mailSoporte, "jpsr mccl mpuz njky");
+
+                // 4. Envío definitivo
                 smtp.Send(mail);
+
+                // 5. Limpieza y aviso de éxito en pantalla
+                txtEmail.Text = string.Empty;
+                lblMensaje.Text = "Se ha enviado la nueva clave temporal a tu casilla de correo.";
+                lblMensaje.CssClass = "text-success small fw-bold mt-2 d-inline-block";
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Error al enviar correo: " + ex.Message;
+                lblMensaje.Text = "Error al procesar el envío: " + ex.Message;
+                lblMensaje.CssClass = "text-danger small fw-bold mt-2 d-inline-block";
             }
-
         }
     }
 }

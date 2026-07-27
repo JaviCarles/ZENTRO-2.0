@@ -1,181 +1,101 @@
-﻿
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Zentro.master.cs" Inherits="Presentacion.Zentro" %>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Zentro.master.cs" Inherits="Presentacion.Zentro" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Zentro 2.0 - Tienda Online</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ringo Clothes - Tienda Online</title>
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- jQuery y scripts -->
-    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
-    <script src="<%= ResolveUrl("~/JS/scripts.js") %>"></script>
-
-    <!-- Estilos -->
-    <link href="Content/estilosTarjetas.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <link href="Content/estilosApp.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+    <link href="Content/estilosTarjetas.css" rel="stylesheet" />
+    <script src="<%= ResolveUrl("~/JS/scripts.js") %>"></script>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
-        }
-
-        form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        footer {
-            margin-top: auto;
-        }
-        
-        /* Ajustes específicos para móviles y tablets */
-        @media (max-width: 768px) {
-            .navbar-nav .nav-link {
-                font-size: 1.5rem; /* texto más grande */
-                padding: 1rem; /* más espacio para el dedo */
-                text-align: center; /* centrados en móviles */
-            }
-
-            .dropdown-menu {
-                font-size: 1.3rem; /* menú desplegable más grande */
-                padding: 0.75rem; /* más espacio interno */
-            }
-
-            .navbar-brand {
-                font-size: 2rem; /* logo Zentro más grande */
-            }
-        }
-        /*@media (max-width: 768px) {
-            .navbar {
-                min-height: 100px;*/ /* barra más alta */
-                /*padding-top: 0.5rem;*/ /* más espacio arriba */
-                /*padding-bottom: 0.5rem;*/ /* más espacio abajo */
-            /*}
-
-            .navbar-brand {
-                font-size: 1.8rem;*/ /* logo Zentro más grande */
-            /*}
-
-            .navbar-nav .nav-link {
-                font-size: 1.4rem;*/ /* ítems más grandes */
-                /*padding: 1rem;*/ /* más espacio para tocar con el dedo */
-                /*text-align: center;*/ /* centrados en móviles */
-            /*}
-
-            .dropdown-menu {
-                font-size: 1.3rem;*/ /* menú desplegable más grande */
-            /*}*/
-        
+        html, body { height: 100%; margin: 0; padding: 0; }
+        form#form1, main { flex: 1; display: flex; flex-direction: column; }
+        .content-grow { flex: 1; }
     </style>
 </head>
 <body class="degradeFondo">
-    <main>
-        <form id="form1" runat="server">
-            <div>
-                <!-- Navbar responsiva -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand fs-5" href="#">Zentro</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <form id="form1" runat="server">
+        <main>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+                <div class="container-fluid px-3 tipografiaTitulo">
+                    <a class="navbar-brand d-flex flex-column lh-sm" href="Default.aspx">
+                        <span class="titulo-degrade fs-5 tipografiaTitulo">RINGO CLOTHES</span>
+                        <span class="subtitulo-degrade tipografiaSubtitlo">Moda importada al mejor precio</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <% if (usuario == null)
-                                    { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="Login.aspx">Login</a>
-                                </li>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="Default.aspx">Home</a></li>
+                            <% if (usuario == null) { %>
+                                <li class="nav-item"><a class="nav-link" href="Login.aspx">Login</a></li>
+                            <% } else { %>
+                                <li class="nav-item"><a class="nav-link" href="Favoritos.aspx">Favoritos</a></li>
+                                <% if (usuario.Admin) { %>
+                                    <li class="nav-item"><a class="nav-link" href="AdminProducto.aspx">Admin Productos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="AdminCategoria.aspx">Categorías</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="AdminMarca.aspx">Marcas</a></li>
                                 <% } %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="Default.aspx">Home</a>
-                                </li>
-                                <% if (usuario != null)
-                                    { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
-                                </li>
-                                <% if (usuario.Admin)
-                                    { %>
-                                <li class="nav-item"><a class="nav-link" href="AdminProducto.aspx">Admin Productos</a></li>
-                                <li class="nav-item"><a class="nav-link" href="AdminCategoria.aspx">Categorias</a></li>
-                                <li class="nav-item"><a class="nav-link" href="AdminMarca.aspx">Marcas</a></li>
-                                <% } %>
-                            </ul>
+                            <% } %>
+                        </ul>
 
-                            <!-- Menú usuario -->
+                        <% if (usuario != null) { %>
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="usuarioMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <asp:Image ID="imgUsuarioNav" runat="server" CssClass="rounded-circle img-fluid" Width="32" Height="32" ImageUrl="Content/Imagenes/Imagen no disponible.png" />
+                                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="usuarioMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <asp:Image ID="imgUsuarioNav" runat="server" CssClass="rounded-circle object-fit-cover" Width="32" Height="32" ImageUrl="Content/Imagenes/Imagen no disponible.png" />
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuarioMenu">
+                                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="usuarioMenu">
                                         <li>
                                             <span class="dropdown-item-text">
                                                 <strong><%: usuario?.Nombre %> <%: usuario?.Apellido %></strong><br />
-                                                <%: usuario?.Email %>
-                                        </span>
+                                                <small class="text-muted"><%: usuario?.Email %></small>
+                                            </span>
                                         </li>
-                                        <li>
-                                            <hr class="dropdown-divider" />
-                                        </li>
-                                        <li>
-                                            <asp:LinkButton ID="btnModificarUsuario" runat="server" CssClass="dropdown-item" OnClick="btnModificarUsuario_Click">Mi Perfil</asp:LinkButton></li>
-                                        <li>
-                                            <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="dropdown-item" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><asp:LinkButton ID="btnModificarUsuario" runat="server" CssClass="dropdown-item" OnClick="btnModificarUsuario_Click">Mi Perfil</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="dropdown-item text-danger" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
                                     </ul>
                                 </li>
                             </ul>
-                            <% } %>
-                        </div>
+                        <% } %>
                     </div>
-                </nav>
-            </div>
-
-            <!-- Contenido principal -->
-            <div class="container-fluid px-3">
+                </div>
+            </nav>
+            <div class="container-fluid pt-2 pb-2 content-grow">
+            
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
             </div>
-        </form>
-    </main>
+        </main>
 
-    <!-- Footer responsivo -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 mb-2">
-                    <p class="mb-2">© 2025 TPFinalNivel3CarlesJavier - Todos los derechos reservados</p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <a href="https://www.linkedin.com/in/javier-carl%C3%A9s-555443226/" target="_blank" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
-                    <a href="https://github.com/JaviCarles" target="_blank" class="text-white me-2"><i class="bi bi-github"></i></a>
-                    <a href="mailto:javiercarles1206@gmail.com" class="text-white me-2"><i class="bi bi-envelope"></i></a>
+        <footer class="bg-dark text-white-50 text-center py-4 border-top border-secondary border-opacity-25">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-6 text-md-start mb-3 mb-md-0">
+                        <p class="mb-0 small">© 2026 Pampa Gaucha - Todos los derechos reservados</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-end fs-5">
+                        <a href="https://www.linkedin.com/in/javier-carl%C3%A9s-555443226/" target="_blank" class="text-white-50 hvr-gold me-3"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/JaviCarles" target="_blank" class="text-white-50 hvr-gold me-3"><i class="bi bi-github"></i></a>
+                        <a href="mailto:javiercarles1206@gmail.com" class="text-white-50 hvr-gold"><i class="bi bi-envelope"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= ResolveUrl("~/JS/scripts.js") %>"></script>
 </body>
 </html>

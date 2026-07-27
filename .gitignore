@@ -6,6 +6,7 @@
 # Archivos de compilación
 bin/
 obj/
+AppSettings.config
 
 # Archivos temporales
 *.log

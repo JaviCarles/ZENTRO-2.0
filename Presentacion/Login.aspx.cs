@@ -46,7 +46,7 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-                Session["error"] = ex.ToString();   
+                Session["error"] = ex.ToString();
                 Response.Redirect("Error.aspx", false);
             }
         }

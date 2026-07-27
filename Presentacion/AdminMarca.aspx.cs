@@ -20,6 +20,16 @@ namespace Presentacion
             {
                 usuario = (Usuario)Session["usuario"];
             }
+
+            // ¡AGREGÁ ESTO AQUÍ!
+            if (!IsPostBack)
+            {
+                // Forzamos que arranquen ocultos en el primer ingreso
+                txtModificarMarca.Visible = false;
+                btnModificarMarca.Visible = false;
+                btnCerrar.Visible = false;
+            }
+
             cargarGrilla();
         }
 

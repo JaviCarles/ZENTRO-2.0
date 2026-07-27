@@ -14,10 +14,11 @@ namespace Presentacion
         public Usuario usuario;
         public List<Producto> lista { get; set; }
         string orden, filtro = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            usuario = new Usuario();
             usuario = Session["usuario"] != null ? (Usuario)Session["usuario"] : null;
+
             if (!IsPostBack)
             {
                 cargarListadoOrden();
@@ -32,11 +33,11 @@ namespace Presentacion
             try
             {
                 if (usuario != null)
+                {
                     lista = ProductoNegocio.buscar(filtro, orden, null, usuario.Id);
-                //else
-                //    lista = ProductoNegocio.buscar(filtro, orden);
-                rptProductos.DataSource = lista;
-                rptProductos.DataBind();
+                    rptProductos.DataSource = lista;
+                    rptProductos.DataBind();
+                }
             }
             catch (Exception ex)
             {
@@ -56,12 +57,12 @@ namespace Presentacion
             {
                 if (e.CommandName == "Favorito")
                 {
-                    //Capturamos el id del producto
                     int idProducto = Convert.ToInt32(e.CommandArgument);
 
-                    // Alternar estado favorito en tu capa de negocio
+                    // Alterna el estado (lo borra de la tabla de favoritos si ya existía)
                     ProductoNegocio.insertarOEliminarFav(idProducto, usuario.Id);
-                    //Refrescamos el repetidor
+
+                    // Refrescamos el repetidor para que desaparezca de la pantalla al instante
                     listarProductos();
                 }
             }

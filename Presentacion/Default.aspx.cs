@@ -38,6 +38,7 @@ namespace Presentacion
                     lista = ProductoNegocio.buscar(filtro, orden, idCategoria);
                 else
                     lista = ProductoNegocio.buscar(filtro, orden);
+                lblCantidad.Text = lista.Count.ToString() + " Productos";
                 rptProductos.DataSource = lista;
                 rptProductos.DataBind();
             }
